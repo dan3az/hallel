@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/hallel/static/css/main.d9926646.css",
-    "main.js": "/hallel/static/js/main.6c9c104b.js",
+    "main.css": "/hallel/static/css/main.d1e55f35.css",
+    "main.js": "/hallel/static/js/main.b9750bc7.js",
     "index.html": "/hallel/index.html",
-    "main.d9926646.css.map": "/hallel/static/css/main.d9926646.css.map",
-    "main.6c9c104b.js.map": "/hallel/static/js/main.6c9c104b.js.map"
+    "main.d1e55f35.css.map": "/hallel/static/css/main.d1e55f35.css.map",
+    "main.b9750bc7.js.map": "/hallel/static/js/main.b9750bc7.js.map"
   },
   "entrypoints": [
-    "static/css/main.d9926646.css",
-    "static/js/main.6c9c104b.js"
+    "static/css/main.d1e55f35.css",
+    "static/js/main.b9750bc7.js"
   ]
 }
