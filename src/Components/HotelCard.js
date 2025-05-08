@@ -1,6 +1,5 @@
 import React from "react";
 import { 
-  Tag, 
   Coins,
   Waves,
   Car,
@@ -11,17 +10,17 @@ import {
   Bed
 } from "lucide-react";
 
-export default function HotelCard({ hotel, onBookClick }) {
-  const features = [
-    { icon: Waves, label: "בריכת שחייה" },
-    { icon: Car, label: "חניה במלון" },
-    { icon: Building, label: "בית כנסת" },
-    { icon: Sun, label: "מרפסת" },
-    { icon: Coffee, label: "ארוחת בוקר כלולה" },
-    { icon: Sparkles, label: "ניקיון יומי" },
-    { icon: Bed, label: "מיטות נוחות במיוחד" }
-  ];
+const featureIcons = [
+  { key: "pool", icon: Waves, label: "בריכת שחייה" },
+  { key: "parking", icon: Car, label: "חניה במלון" },
+  { key: "synagogue", icon: Building, label: "בית כנסת" },
+  { key: "balcony", icon: Sun, label: "מרפסת" },
+  { key: "breakfast", icon: Coffee, label: "ארוחת בוקר כלולה" },
+  { key: "cleaning", icon: Sparkles, label: "ניקיון יומי" },
+  { key: "comfyBeds", icon: Bed, label: "מיטות נוחות במיוחד" }
+];
 
+export default function HotelCard({ hotel, onBookClick }) {
   return (
     <div className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px] cursor-pointer border rounded-lg">
       <div className="relative h-48 overflow-hidden">
@@ -30,33 +29,67 @@ export default function HotelCard({ hotel, onBookClick }) {
           alt={hotel.title} 
           className="w-full h-full object-cover"
         />
+
+        {/* תוויות */}
+        <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+          {hotel.lastRooms && (
+            <div className="bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded">
+              חדרים אחרונים
+            </div>
+          )}
+          {hotel.bestValue && (
+            <div className="bg-green-600 text-white text-xs font-semibold px-2 py-1 rounded">
+              הכי משתלם
+            </div>
+          )}
+          {hotel.mostPopular && (
+            <div className="bg-yellow-500 text-white text-xs font-semibold px-2 py-1 rounded">
+              הנמכר ביותר
+            </div>
+          )}
+        </div>
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
         <div className="absolute bottom-0 right-0 p-4">
           <h3 className="text-lg font-bold text-white">{hotel.title}</h3>
         </div>
       </div>
-      <div className="p-4">
-        <div className="mb-4 flex items-center gap-2 text-lg font-semibold text-blue-600">
-          <Coins className="w-5 h-5" />
-          <span>החל מ-₪{hotel.prices[0].match(/\d+/)[0]} לזוג</span>
-        </div>
 
-        <div className="grid grid-cols-2 gap-2 mb-4">
-          {features.map((feature, index) => (
-            <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
-              <feature.icon className="w-4 h-4 text-blue-500" />
-              <span>{feature.label}</span>
-            </div>
-          ))}
-        </div>
+      <div className="p-4 flex flex-col justify-between min-h-[300px]">
+    <div>
+    <div className="flex items-center gap-2 text-lg font-semibold text-blue-600">
+      <Coins className="w-5 h-5" />
+      <span>החל מ-₪{hotel.prices[0].match(/\d+/)[0]} לזוג</span>
+    </div>
 
-        <button 
-          onClick={() => onBookClick(hotel.id)}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg"
-        >
-          להזמנה
-        </button>
-      </div>
+    {hotel.halfBoard && (
+  <div className="text-sm text-green-700 font-semibold mb-4">
+    כולל חצי פנסיון 🍽️
+  </div>
+)}
+
+    
+
+    <div className="grid grid-cols-2 gap-2 mb-4">
+      {featureIcons.map(({ key, icon: Icon, label }) =>
+        hotel.features?.[key] ? (
+          <div key={key} className="flex items-center gap-2 text-sm text-gray-600">
+            <Icon className="w-4 h-4 text-blue-500" />
+            <span>{label}</span>
+          </div>
+        ) : null
+      )}
+    </div>
+  </div>
+
+  <button 
+    onClick={() => onBookClick(hotel.id)}
+    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-4"
+  >
+    לפרטים והזמנה
+  </button>
+</div>
+
     </div>
   );
 }
