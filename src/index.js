@@ -21,7 +21,7 @@ export default function App() {
       title: "מלון אקוודוקט | רגבה",
       image: "https://www.bgalil.co.il/files/tinymceuploads/DSC_9529_copy.jpg._1565688455",
       prices: [
-        "מחיר לזוג: 1400 ש״ח",
+        "מחיר לזוג: 1401 ש״ח",
         "ילדים (2–12): 350 ש״ח",
         "תינוקות (0–2): 80 ש״ח"
       ]
