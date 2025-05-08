@@ -55,7 +55,7 @@ export default function HotelCard({ hotel, onBookClick }) {
         </div>
       </div>
 
-      <div className="p-4 flex flex-col justify-between min-h-[300px]">
+      <div className="p-4 flex flex-col justify-between min-h-[250px]">
     <div>
     <div className="flex items-center gap-2 text-lg font-semibold text-blue-600">
       <Coins className="w-5 h-5" />
@@ -63,14 +63,14 @@ export default function HotelCard({ hotel, onBookClick }) {
     </div>
 
     {hotel.halfBoard && (
-  <div className="text-sm text-green-700 font-semibold mb-4">
+  <div className="text-sm text-green-700 font-semibold ">
     כולל חצי פנסיון 🍽️
   </div>
 )}
 
     
 
-    <div className="grid grid-cols-2 gap-2 mb-4">
+    <div className="grid grid-cols-2 gap-2 mt-4">
       {featureIcons.map(({ key, icon: Icon, label }) =>
         hotel.features?.[key] ? (
           <div key={key} className="flex items-center gap-2 text-sm text-gray-600">
