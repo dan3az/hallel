@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/hallel/static/css/main.d9926646.css",
+    "main.js": "/hallel/static/js/main.6c9c104b.js",
+    "index.html": "/hallel/index.html",
+    "main.d9926646.css.map": "/hallel/static/css/main.d9926646.css.map",
+    "main.6c9c104b.js.map": "/hallel/static/js/main.6c9c104b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d9926646.css",
+    "static/js/main.6c9c104b.js"
+  ]
+}
