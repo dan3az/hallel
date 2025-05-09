@@ -9,6 +9,7 @@ import {
   Sparkles,
   Bed
 } from "lucide-react";
+import ShareButtons from "./ShareButtons";
 
 const featureIcons = [
   { key: "pool", icon: Waves, label: "בריכת שחייה" },
@@ -22,7 +23,7 @@ const featureIcons = [
 
 export default function HotelCard({ hotel, onBookClick }) {
   return (
-    <div className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px] cursor-pointer border rounded-lg">
+    <div className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:translate-y-[-5px] cursor-pointer border rounded-lg flex flex-col">
       <div className="relative h-48 overflow-hidden">
         <img 
           src={hotel.image} 
@@ -31,7 +32,7 @@ export default function HotelCard({ hotel, onBookClick }) {
         />
 
         {/* תוויות */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+        <div className="absolute top-2 right-2 flex flex-col gap-1 z-10">
           {hotel.lastRooms && (
             <div className="bg-red-600 text-white text-xs font-semibold px-2 py-1 rounded">
               חדרים אחרונים
@@ -49,47 +50,46 @@ export default function HotelCard({ hotel, onBookClick }) {
           )}
         </div>
 
+        <ShareButtons hotel={hotel} />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
         <div className="absolute bottom-0 right-0 p-4">
           <h3 className="text-lg font-bold text-white">{hotel.title}</h3>
         </div>
       </div>
 
-      <div className="p-4 flex flex-col justify-between min-h-[250px]">
-    <div>
-    <div className="flex items-center gap-2 text-lg font-semibold text-blue-600">
-      <Coins className="w-5 h-5" />
-      <span>החל מ-₪{hotel.prices[0].match(/\d+/)[0]} לזוג</span>
-    </div>
-
-    {hotel.halfBoard && (
-  <div className="text-sm text-green-700 font-semibold ">
-    כולל חצי פנסיון 🍽️
-  </div>
-)}
-
-    
-
-    <div className="grid grid-cols-2 gap-2 mt-4">
-      {featureIcons.map(({ key, icon: Icon, label }) =>
-        hotel.features?.[key] ? (
-          <div key={key} className="flex items-center gap-2 text-sm text-gray-600">
-            <Icon className="w-4 h-4 text-blue-500" />
-            <span>{label}</span>
+      <div className="p-4 flex flex-col  flex-grow">
+        <div className="flex-grow">
+          <div className="flex items-center gap-2 text-lg font-semibold text-blue-600">
+            <Coins className="w-5 h-5" />
+            <span>החל מ-₪{hotel.minPrice}</span>
           </div>
-        ) : null
-      )}
-    </div>
-  </div>
 
-  <button 
-    onClick={() => onBookClick(hotel.id)}
-    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-4"
-  >
-    לפרטים והזמנה
-  </button>
-</div>
+          {hotel.halfBoard && (
+            <div className="text-sm text-green-700 font-semibold">
+              כולל חצי פנסיון 🍽️
+            </div>
+          )}
 
+          <div className="grid grid-cols-2 gap-2 mt-4">
+            {featureIcons.map(({ key, icon: Icon, label }) =>
+              hotel.features?.[key] ? (
+                <div key={key} className="flex items-center gap-2 text-sm text-gray-600">
+                  <Icon className="w-4 h-4 text-blue-500" />
+                  <span>{label}</span>
+                </div>
+              ) : null
+            )}
+          </div>
+        </div>
+
+        <button 
+          onClick={() => onBookClick(hotel.id)}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-4"
+        >
+          לפרטים והזמנה
+        </button>
+      </div>
     </div>
   );
 }

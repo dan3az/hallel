@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { User, Phone, Mail, Building } from "lucide-react";
 
 export default function ContactForm({ contactRef, hotels, selectedHotel, onHotelSelect }) {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    hotel: "",  // הערך ההתחלתי ריק
+    hotel: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // עדכון הסטייט של המלון אם יש selectedHotel
   useEffect(() => {
     if (selectedHotel) {
       setFormData((prev) => ({
         ...prev,
-        hotel: selectedHotel, // מגדירים את המלון לפי הערך של selectedHotel
+        hotel: selectedHotel,
       }));
     }
-  }, [selectedHotel]); // זה רץ רק אם selectedHotel משתנה
+  }, [selectedHotel]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,7 +71,7 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
   return (
     <section ref={contactRef} id="contact" className="py-12 md:py-16 bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="bg-blue-600 px-6 py-5 text-white">
             <h2 className="text-2xl font-bold">השאירו פרטים ונחזור אליכם</h2>
             <p className="mt-2 opacity-90">נשמח לענות על כל שאלה ולספק מידע נוסף</p>
@@ -86,12 +86,10 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
                 <p>תודה! ניצור איתכם קשר בקרוב</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="space-y-2">
+              <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-4">
+                <div className="flex flex-col space-y-2 md:col-span-1">
                   <label htmlFor="name" className="text-blue-900 font-medium flex items-center gap-2">
-                    <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zM12 1C6.48 1 2 5.48 2 9c0 1.1.47 2.1 1.23 2.77-.56 1.06-.91 2.23-.91 3.53C2.32 16.74 6.56 21 12 21s9.68-4.26 9.68-9.7c0-1.3-.35-2.47-.91-3.53.76-.67 1.23-1.67 1.23-2.77 0-3.52-4.48-8-10-8z" />
-                    </svg>
+                    <User className="w-4 h-4" />
                     שם מלא
                   </label>
                   <input
@@ -105,11 +103,9 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="flex flex-col space-y-2 md:col-span-1">
                   <label htmlFor="phone" className="text-blue-900 font-medium flex items-center gap-2">
-                    <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5.5C3 4.12 4.12 3 5.5 3S8 4.12 8 5.5 6.88 8 5.5 8 3 6.88 3 5.5zM1 11v3a2 2 0 002 2h2l2 4h8l2-4h2a2 2 0 002-2v-3H1z" />
-                    </svg>
+                    <Phone className="w-4 h-4" />
                     טלפון
                   </label>
                   <input
@@ -124,11 +120,9 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="flex flex-col space-y-2 md:col-span-1">
                   <label htmlFor="email" className="text-blue-900 font-medium flex items-center gap-2">
-                    <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2 3a2 2 0 012-2h16a2 2 0 012 2v18a2 2 0 01-2 2H4a2 2 0 01-2-2V3z" />
-                    </svg>
+                    <Mail className="w-4 h-4" />
                     אימייל
                   </label>
                   <input
@@ -143,11 +137,9 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
                   />
                 </div>
 
-                <div className="space-y-2">
+                <div className="flex flex-col space-y-2 md:col-span-1">
                   <label htmlFor="hotel" className="text-blue-900 font-medium flex items-center gap-2">
-                    <svg className="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 7c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zM12 1C6.48 1 2 5.48 2 9c0 1.1.47 2.1 1.23 2.77-.56 1.06-.91 2.23-.91 3.53C2.32 16.74 6.56 21 12 21s9.68-4.26 9.68-9.7c0-1.3-.35-2.47-.91-3.53.76-.67 1.23-1.67 1.23-2.77 0-3.52-4.48-8-10-8z" />
-                    </svg>
+                    <Building className="w-4 h-4" />
                     באיזה מלון אתם מעוניינים?
                   </label>
                   <select
@@ -162,10 +154,10 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
                   </select>
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-medium py-3 px-6 rounded-lg transition-all duration-300"
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-medium py-3 px-6 rounded-lg transition-all duration-300 md:col-span-2 mt-4"
                 >
                   {isSubmitting ? "...שולח" : "שלחו לי פרטים"}
                 </button>

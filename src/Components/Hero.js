@@ -17,27 +17,15 @@ export default function Hero({ scrollToContact, scrollToHotels }) {
       />
       <div className="relative z-20 container mx-auto px-4 h-full flex flex-col justify-center items-center text-white">
         <div className="w-full max-w-3xl text-center">
-<img
-  src={logo}
-  alt="הללויה לוגו"
-  className="mx-auto mt-[-20px] mb-6 w-72 h-auto drop-shadow-2xl"
-/>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight">
-            הללויה הפקות תיירות ונופש בארץ ובעולם מזמינים אתכם לבלות ולהתרענן בסוף שבוע קסום בשישי שבת הקרובים
-          </h1>
-          
-          
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-              <Calendar className="w-5 h-5" />
-              <span>9-10/05/2025</span>
-            </div>
-            
-            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-              <Book className="w-5 h-5" />
-              <span>פרשת "אחרי-מות קדושים"</span>
-            </div>
-          </div>
+
+   <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 leading-tight text-center">
+  <span className="block">
+    הללויה הפקות תיירות ונופש בארץ ובעולם מזמינים אתכם להצטרף לחוויה ייחודית ומרעננת!
+  </span>
+  <span className="block text-base md:text-lg lg:text-xl font-normal mt-2">
+    בואו לגלות את כל המלונות והאירועים הקרובים לשבתות ולחגים – לבילוי קסום ומלא תוכן.
+  </span>
+</h1>
 
           <div className="flex flex-col md:flex-row justify-center items-center gap-4">
             <button 
@@ -55,6 +43,7 @@ export default function Hero({ scrollToContact, scrollToHotels }) {
               צור קשר
               <ChevronLeft className="w-5 h-5" />
             </button>
+            
           </div>
         </div>
       </div>
