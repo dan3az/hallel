@@ -12,14 +12,17 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  useEffect(() => {
-    if (selectedHotel) {
+useEffect(() => {
+  if (selectedHotel) {
+    const selected = hotels.find((hotel) => hotel.id === selectedHotel);
+    if (selected) {
       setFormData((prev) => ({
         ...prev,
-        hotel: selectedHotel,
+        hotel: selected,
       }));
     }
-  }, [selectedHotel]);
+  }
+}, [selectedHotel, hotels]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,45 +31,50 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
       [name]: value,
     }));
   };
-
-  const handleHotelChange = (value) => {
-    setFormData((prev) => ({
-      ...prev,
-      hotel: value,
-    }));
-    onHotelSelect(value);
-  };
+const handleHotelChange = (hotelId) => {
+  const selected = hotels.find((hotel) => hotel.id === hotelId);
+  setFormData((prev) => ({
+    ...prev,
+    hotel: selected || "",
+  }));
+  onHotelSelect(hotelId);
+};
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      const response = await fetch('https://hook.eu2.make.com/3sncfmuct8l6mlw6zcej3f4yxpr2qdln', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      setIsSubmitted(true);
-      setFormData({ name: "", phone: "", email: "", hotel: "" });
-      onHotelSelect("");
-
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 3000);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const payload = {
+    ...formData,
+    hotel: formData.hotel || null, // אובייקט מלא
   };
+
+  try {
+    const response = await fetch('https://hook.eu2.make.com/3sncfmuct8l6mlw6zcej3f4yxpr2qdln', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    setIsSubmitted(true);
+    setFormData({ name: "", phone: "", email: "", hotel: "" });
+    onHotelSelect("");
+
+    setTimeout(() => {
+      setIsSubmitted(false);
+    }, 3000);
+  } catch (error) {
+    console.error('Error submitting form:', error);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <section ref={contactRef} id="contact" className="py-12 md:py-16 bg-gradient-to-b from-blue-50 to-white">
@@ -142,16 +150,16 @@ export default function ContactForm({ contactRef, hotels, selectedHotel, onHotel
                     <Building className="w-4 h-4" />
                     באיזה מלון אתם מעוניינים?
                   </label>
-                  <select
-                    value={formData.hotel}
-                    onChange={(e) => handleHotelChange(e.target.value)}
-                    className="w-full p-3 border border-blue-100 rounded-lg focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="">בחרו מלון</option>
-                    {hotels.map((hotel) => (
-                      <option key={hotel.id} value={hotel.id}>{hotel.title}</option>
-                    ))}
-                  </select>
+                 <select
+  value={formData.hotel?.id || ""}
+  onChange={(e) => handleHotelChange(e.target.value)}
+  className="w-full p-3 border border-blue-100 rounded-lg focus:ring-2 focus:ring-blue-500"
+>
+  <option value="">בחרו מלון</option>
+  {hotels.map((hotel) => (
+    <option key={hotel.id} value={hotel.id}>{hotel.title}</option>
+  ))}
+</select>
                 </div>
 
                 <button
