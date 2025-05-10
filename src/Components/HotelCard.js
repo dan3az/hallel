@@ -1,6 +1,10 @@
+// src/components/HotelCard.jsx
+
 import React from "react";
-import { 
+import {
   Coins,
+  Calendar,
+  Book,
   Waves,
   Car,
   Building,
@@ -11,6 +15,17 @@ import {
 } from "lucide-react";
 import ShareButtons from "./ShareButtons";
 
+// פונקציה לעיצוב טווח תאריכים
+function formatDateRange(start, end) {
+  if (!start || !end) return "";
+
+  const [startDay, startMonth, startYear] = start.split("-"); // dd-mm-yyyy
+  const [endDay, endMonth, endYear] = end.split("-");
+
+  return `${endYear}/${endMonth}/${endDay} - ${startYear}/${startMonth}/${startDay}`;
+}
+
+// מיפוי של הפיצ'רים לאייקונים
 const featureIcons = [
   { key: "pool", icon: Waves, label: "בריכת שחייה" },
   { key: "parking", icon: Car, label: "חניה במלון" },
@@ -58,7 +73,7 @@ export default function HotelCard({ hotel, onBookClick }) {
         </div>
       </div>
 
-      <div className="p-4 flex flex-col  flex-grow">
+      <div className="p-4 flex flex-col flex-grow">
         <div className="flex-grow">
           <div className="flex items-center gap-2 text-lg font-semibold text-blue-600">
             <Coins className="w-5 h-5" />
@@ -71,9 +86,24 @@ export default function HotelCard({ hotel, onBookClick }) {
             </div>
           )}
 
+          {/* תאריכים ופרשה */}
+          {hotel.startDate && hotel.endDate && (
+            <div className="text-sm text-gray-700 mt-2">
+              <div className="inline-flex items-center">
+                <Calendar className="w-5 h-5 ml-2 text-blue-500" /> 
+                {formatDateRange(hotel.startDate, hotel.endDate)}
+              </div>
+              <div className="inline-flex items-center mt-1">
+                <Book className="w-5 h-5 ml-2 text-blue-500" /> 
+                פרשת "{hotel.parasha}"
+              </div>
+            </div>
+          )}
+
+          {/* תצוגת פיצ'רים */}
           <div className="grid grid-cols-2 gap-2 mt-4">
             {featureIcons.map(({ key, icon: Icon, label }) =>
-              hotel.features?.[key] ? (
+              hotel.features?.includes(key) ? (
                 <div key={key} className="flex items-center gap-2 text-sm text-gray-600">
                   <Icon className="w-4 h-4 text-blue-500" />
                   <span>{label}</span>

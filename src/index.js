@@ -9,7 +9,7 @@ import ContactForm from "./Components/ContactForm";
 import Footer from "./Components/Footer";
 import WhatsAppButton from "./Components/WhatsAppButton";
 import Testimonials from "./Components/Testimonials";
-import hotels from "./hotels"
+import fetchHotels  from "./hotels"
 import CompanyStats from "./Components/CompanyStats"
 import WhatsAppGroups from "./Components/WhatsAppGroups"
 
@@ -29,32 +29,41 @@ export default function App() {
     contactRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-
+const [hotels, setHotels] = useState([]);
   // Add Hebrew fonts
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.innerHTML = `
-      @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Rubik:wght@400;500;600;700&display=swap');
-      
-      :root {
-        --font-heading: 'Assistant', sans-serif;
-        --font-body: 'Rubik', sans-serif;
-      }
-      
-      h1, h2, h3, h4, h5, h6 {
-        font-family: var(--font-heading);
-      }
-      
-      body {
-        font-family: var(--font-body);
-      }
-    `;
-    document.head.appendChild(style);
-    return () => {
+useEffect(() => {
+  fetchHotels()
+    .then(setHotels)
+    .catch(err => console.error("שגיאה בטעינת המלונות:", err));
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Rubik:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --font-heading: 'Assistant', sans-serif;
+      --font-body: 'Rubik', sans-serif;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+    }
+    
+    body {
+      font-family: var(--font-body);
+    }
+  `;
+
+  // הוספה ל-head
+  document.head.appendChild(style);
+
+  return () => {
+    // רק נסיר אם אכן קיים בתוך head
+    if (style.parentNode === document.head) {
       document.head.removeChild(style);
-    };
-    console.log(hotels)
-  }, []);
+    }
+  };
+}, []);
 
   return (
     <div dir="rtl" className="min-h-screen flex flex-col">

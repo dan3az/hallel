@@ -1,6 +1,6 @@
 // src/hotels.js
 
-const hotels = [
+/*const hotels = [
   {
     id: "aqueduct",
     title: "מלון אקוודוקט | רגבה",
@@ -10,15 +10,10 @@ const hotels = [
     bestValue: false,
     mostPopular: true,
     halfBoard: true,
-    features: {
-      pool: true,
-      parking: true,
-      synagogue: true,
-      balcony: false,
-      breakfast: true,
-      cleaning: true,
-      comfyBeds: true
-    }
+    startDate: "2025-05-16",
+    endDate: "2025-05-18",
+    parasha: "בחוקותי",
+    features: ["pool", "parking", "synagogue", "breakfast", "cleaning", "comfyBeds"]
   },
   {
     id: "nofHaifa",
@@ -29,15 +24,10 @@ const hotels = [
     bestValue: true,
     mostPopular: false,
     halfBoard: true,
-    features: {
-      pool: false,
-      parking: true,
-      synagogue: false,
-      balcony: true,
-      breakfast: true,
-      cleaning: false,
-      comfyBeds: true
-    }
+    startDate: "2025-05-23",
+    endDate: "2025-05-25",
+    parasha: "נשא",
+    features: ["parking", "balcony", "breakfast", "comfyBeds"]
   },
   {
     id: "elyam",
@@ -48,15 +38,10 @@ const hotels = [
     bestValue: false,
     mostPopular: false,
     halfBoard: false,
-    features: {
-      pool: true,
-      parking: true,
-      synagogue: true,
-      balcony: true,
-      breakfast: true,
-      cleaning: true,
-      comfyBeds: true
-    }
+    startDate: "2025-05-30",
+    endDate: "2025-06-01",
+    parasha: "בהעלותך",
+    features: ["pool", "parking", "synagogue", "balcony", "breakfast", "cleaning", "comfyBeds"]
   },
   {
     id: "residance",
@@ -67,15 +52,10 @@ const hotels = [
     bestValue: false,
     mostPopular: false,
     halfBoard: false,
-    features: {
-      pool: false,
-      parking: true,
-      synagogue: true,
-      balcony: false,
-      breakfast: false,
-      cleaning: true,
-      comfyBeds: true
-    }
+    startDate: "2025-06-06",
+    endDate: "2025-06-08",
+    parasha: "שלח",
+    features: ["parking", "synagogue", "cleaning", "comfyBeds"]
   },
   {
     id: "tveria",
@@ -86,16 +66,27 @@ const hotels = [
     bestValue: false,
     mostPopular: true,
     halfBoard: false,
-    features: {
-      pool: true,
-      parking: false,
-      synagogue: true,
-      balcony: false,
-      breakfast: true,
-      cleaning: false,
-      comfyBeds: true
-    }
+    startDate: "2025-06-13",
+    endDate: "2025-06-15",
+    parasha: "קורח",
+    features: ["pool", "synagogue", "breakfast", "comfyBeds"]
   }
 ];
 
-export default hotels;
+
+export default hotels;*/
+// src/hotels.js
+export default async function fetchHotels() {
+  const response = await fetch("https://airtable-api-zeta.vercel.app/api/events");
+  const data = await response.json();
+  console.log(data);
+
+  return data.map(hotel => ({
+    ...hotel,
+    features: Array.isArray(hotel.features)
+      ? hotel.features
+      : typeof hotel.features === "string"
+      ? hotel.features.split(",").map(f => f.trim())
+      : []
+  }));
+}
