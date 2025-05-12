@@ -5,7 +5,7 @@
   <title>שבתות חתן, אירועים וסופי שבוע עם הללויה</title>
   <meta property="og:title" content="שבתות חתן, אירועים וסופי שבוע עם הללויה" />
   <meta property="og:description" content="הצטרפו לקהילות שלנו בווצאפ והיו חלק מאירועים בלתי נשכחים עם אנשים כמוכם" />
-  <meta property="og:image" content="https://hallel.vercel.app/og-image.jpg" />
+  <meta property="og:image" content="https://hallel.vercel.app/landing.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
