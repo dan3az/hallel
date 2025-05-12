@@ -63,13 +63,7 @@ export default function ShareButtons({ hotel }) {
             onClick={shareViaFacebook}
             className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-100"
           >
-            <Facebook className="h-4 w-4 text-blue-600" />
-            Facebook
-          </button>
-          <button
-            onClick={shareViaEmail}
-            className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-100"
-          >
+
             <Mail className="h-4 w-4 text-gray-600" />
             אימייל
           </button>
